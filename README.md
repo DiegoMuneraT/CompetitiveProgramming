@@ -24,8 +24,9 @@ Often encountered in algorithms that involve sorting, searching, or divide-and-c
 
 **O(n^2), O(2^n) and O(n!) - Horrible/Worst**
 
-When you have nested loops within your algorithm, meaning a loop in a loop, it is quadratic time complexity (O(n^2)). 
-When the growth rate doubles with each addition to the input, it is exponential time complexity (O2^n).
+- When you have nested loops within your algorithm, meaning a loop in a loop, it is quadratic time complexity (O(n^2)). 
+
+- When the growth rate doubles with each addition to the input, it is exponential time complexity (O2^n).
 
 # Common Data Structure Operations
 
