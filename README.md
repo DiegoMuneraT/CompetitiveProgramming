@@ -18,7 +18,8 @@ When the input size is reduced by half, maybe when iterating, handling recursion
 
 When you have a single loop within your algorithm, it is linear time complexity (O(n)).
 
-O(n log n) - Bad
+**O(n log n) - Bad**
+
 Often encountered in algorithms that involve sorting, searching, or divide-and-conquer techniques is not a bad time complexity, but the efficiency of an algorithm should be evaluated based on the specific requirements of the problem it is solving.
 
 **O(n^2), O(2^n) and O(n!) - Horrible/Worst**
