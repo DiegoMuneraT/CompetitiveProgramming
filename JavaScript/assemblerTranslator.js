@@ -5,7 +5,6 @@ const infijoAPosfijo = (exp) => {
     "-": 1,
     "*": 2,
     "/": 2,
-    "^": 3
   };
 
   let resultado = [];
@@ -62,7 +61,6 @@ const infijoAPosfijo = (exp) => {
 
   // Une los tokens del resultado en una cadena
   let resultadoString = resultado.join("");
-
   return resultadoString;
 }
 
@@ -73,30 +71,42 @@ const codetoAssembler = (op) => {
   let table = {
     '+': 'ADD',
     '-': 'SUB',
-    '*': 'MULT',
+    '*': 'MUL',
     '/': 'DIV',
-    '^': 'POT',
   };
+  
+  let registers = {
+    '1': 'R0',
+    '2': 'R1',
+    '3': 'R2',
+    '4': 'R3',
+    '5': 'R4',
+    '6': 'R5',
+    '7': 'R6',
+    '8': 'R7',
+    '9': 'R8',
+    '10': 'R9',
+  };
+  
   let result = "\n";
   const exp = infijoAPosfijo(op);
   let tokens = exp.split('');
-  
   for (let i = 0; i < tokens.length; i++) {
     let token = tokens[i];
     // Si el token es un número, lo añade al resultado
-    if (!isNaN(token)) {
-      result += token + '\n';
+    if (!isNaN(parseFloat(token))) {
+      result += "MOV " + token + ',' + registers[i+1] + '\n';
+    }
     // Si el token es un operador, lo traduce y añade al resultado
-    } else if(token in table){
-      result += table[token] + '\n'
+    if(token in table){
+      result += table[token] + ' ' + registers[i-1] + ',' + registers[i] + '\n';
+    }
+    // Si el token es una letra, lo mueve a memoria
+    if(isNaN(parseFloat(token)) && !(token in table)){
+      result += "MOV" + token + registers[i];
     }
   };
-  console.log(result)  
+  console.log(result);
 }
 
-// --------------------------------------------------
-// Ejecución del programa:
-//  -Es una calculadora simple que puede traducir operaciones aritmeticas simples o conjuntas de: +,-,*,/,^ a lenguaje    ensamblador.
-//  -La única condicion es separar por espacios en blanco cada caracter
-//  -La entrada debe ser un String por ejemplo 5+1 es una entrada incorrecta, debe ser "5+1"
-codetoAssembler("3 + 4 * 2 / ( 1 - 5 ) ^ 2 ^ 3")
+codetoAssembler("3 + 4 * 2 / ( 1 - 5 )");
